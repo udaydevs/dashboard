@@ -51,7 +51,7 @@ export default function Dashboard() {
       setResponse(null)
       setIsStreaming(true)
 
-      const res = await fetch("http://192.168.1.14:8000/prompt/", {
+      const res = await fetch("https://keven-submissive-unmystically.ngrok-free.dev/prompt/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt }),
