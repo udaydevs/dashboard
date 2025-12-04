@@ -65,7 +65,7 @@ export default function Dashboard() {
     setPrompt('')
 
     try {
-      const res = await fetch(local_url, {
+      const res = await fetch(main_url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt }),

@@ -1,14 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 import SignUpForm from "@/components/items/signup";
 import SignInForm from "@/components/items/signin";
 import { motion } from "framer-motion";
 
-export default function Page() {
-  const [activeForm, setActiveForm] = useState("signup"); // removed TS union type
+export default function AuthContent() {
+  const [activeForm, setActiveForm] = useState("signup");
   const mode = useSearchParams().get("mode");
 
   useEffect(() => {
@@ -19,7 +18,6 @@ export default function Page() {
 
   return (
     <div className="relative w-full flex justify-center items-center h-screen overflow-hidden">
-
       <div className="relative z-10 lg:h-[60%] backdrop-blur-lg border border-white/20 shadow-lg mx-auto w-full max-w-md rounded-4xl p-4 md:p-8 max-sm:mx-3 dark:bg-black/60">
         
         <div className="relative flex w-fit mb-6 h-[12%] rounded-4xl text-black bg-primary py-0.5 px-1 overflow-hidden">
@@ -27,7 +25,7 @@ export default function Page() {
             layout
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
             className={cn(
-              "absolute top-1 bottom-1 p-1 rounded-3xl bg-white ",
+              "absolute top-1 bottom-1 p-1 rounded-3xl bg-white",
               activeForm === "signup"
                 ? "left-1 w-[calc(50%-0.6rem)]"
                 : "left-[calc((50%+0.7rem))] w-[calc((50%-0.7rem)-3px)]"
