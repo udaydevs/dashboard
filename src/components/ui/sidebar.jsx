@@ -5,9 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 
-// ---------------------------
-// Context Setup
-// ---------------------------
+
 const SidebarContext = createContext(undefined);
 
 export const useSidebar = () => {
@@ -18,9 +16,7 @@ export const useSidebar = () => {
   return context;
 };
 
-// ---------------------------
-// Provider
-// ---------------------------
+
 export const SidebarProvider = ({ children, open: openProp, setOpen: setOpenProp, animate = true }) => {
   const [openState, setOpenState] = useState(false);
 
@@ -34,9 +30,7 @@ export const SidebarProvider = ({ children, open: openProp, setOpen: setOpenProp
   );
 };
 
-// ---------------------------
-// Sidebar Wrapper
-// ---------------------------
+
 export const Sidebar = ({ children, open, setOpen, animate }) => {
   return (
     <SidebarProvider open={open} setOpen={setOpen} animate={animate}>
@@ -45,9 +39,7 @@ export const Sidebar = ({ children, open, setOpen, animate }) => {
   );
 };
 
-// ---------------------------
-// Body (Desktop + Mobile)
-// ---------------------------
+
 export const SidebarBody = ({ children, className }) => {
   return (
     <>
@@ -57,9 +49,7 @@ export const SidebarBody = ({ children, className }) => {
   );
 };
 
-// ---------------------------
-// Desktop Sidebar
-// ---------------------------
+
 export const DesktopSidebar = ({ className, children }) => {
   const { open, setOpen, animate } = useSidebar();
 
@@ -80,9 +70,7 @@ export const DesktopSidebar = ({ className, children }) => {
   );
 };
 
-// ---------------------------
-// Mobile Sidebar
-// ---------------------------
+
 export const MobileSidebar = ({ className, children }) => {
   const { open, setOpen } = useSidebar();
 
@@ -140,9 +128,7 @@ export const MobileSidebar = ({ className, children }) => {
 };
 
 
-// ---------------------------
-// Sidebar Link
-// ---------------------------
+
 export const SidebarLink = ({ link, className }) => {
   const { open, animate } = useSidebar();
 

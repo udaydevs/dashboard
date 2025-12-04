@@ -3,6 +3,9 @@ import { useRef, useState,useEffect } from "react"
 import remarkGfm from "remark-gfm"
 import ReactMarkdown from "react-markdown"
 
+const main_url = "https://sensei-backend-104839152918.europe-west1.run.app/prompt/"
+const local_url = "http://127.0.0.1:8002/prompt/"
+
 export default function Dashboard() {
   const [prompt, setPrompt] = useState("")
   const [defPrompt, setDefPrompt] = useState('How can I assist you today?')
@@ -62,7 +65,7 @@ export default function Dashboard() {
     setPrompt('')
 
     try {
-      const res = await fetch("https://sensei-backend-104839152918.europe-west1.run.app/prompt/", {
+      const res = await fetch(local_url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt }),
@@ -98,7 +101,7 @@ export default function Dashboard() {
               {item.type === 'user' ? item.content : (
                 <div className="prose prose prose-sm sm:prose overflow-auto lg:prose-lg px-2">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {item.content.result}
+                    {item.content}
                   </ReactMarkdown>
                 </div>
               )}
@@ -148,7 +151,8 @@ export default function Dashboard() {
                 </button>
                 <button
                   type="submit"
-                  className="mx-2 p-2 w-fit border rounded-[50%] text-white bg-primary "
+                  className="mx-2 p-2 w-fit border rounded-[50%] text-white bg-primary"
+                  
                 >
                   {isStreaming ? (
                     <div>

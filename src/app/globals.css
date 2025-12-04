@@ -51,9 +51,14 @@
   border-radius: 4px;
 }
 
+svg {
+  cursor: pointer;
+}
+
 :root {
   --default-font-family: "Inter Tight", sans-serif;
   --radius: 0.625rem;
+  --moz-text-decoration-color: black;
   --background: #f9fafc;
   --foreground: oklch(0.13 0.028 261.692);
   --card: oklch(1 0 0);

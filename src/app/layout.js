@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
-import { IconHome, IconSettings, IconUser } from "@tabler/icons-react";
+import { IconHome, IconSettings, IconUser, IconBrandLine  } from "@tabler/icons-react";
 
 export default function RootLayout({ children }) {
   return (
@@ -10,6 +10,9 @@ export default function RootLayout({ children }) {
           <SidebarBody className="bg-neutral-100 dark:bg-neutral-900 px-4 py-6">
             <SidebarLink
               link={{ label: "Home", href: "/", icon: <IconHome /> }}
+            />
+            <SidebarLink
+              link={{ label: "Chat", href: "/dashboard", icon: <IconBrandLine /> }}
             />
 
             <SidebarLink
