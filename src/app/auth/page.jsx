@@ -1,20 +1,13 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import SignUpForm from "@/components/items/signup";
 import SignInForm from "@/components/items/signin";
 import { motion } from "framer-motion";
 
-export default function AuthContent() {
+export default function Page() {
   const [activeForm, setActiveForm] = useState("signup");
-  const mode = useSearchParams().get("mode");
-
-  useEffect(() => {
-    if (mode === "signin" || mode === "signup") {
-      setActiveForm(mode);
-    }
-  }, [mode]);
 
   return (
     <div className="relative w-full flex justify-center items-center h-screen overflow-hidden">
