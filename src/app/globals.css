@@ -3,7 +3,22 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@keyframes fadeOpacity {
+    0% {
+        opacity: 0.2;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.2;
+    }
+}
 
+.animate-glow {
+    animation: fadeOpacity 0.5s infinite; /* Faster 0.5s duration, infinite loop */
+    box-shadow: 0 0 15px rgba(171, 144, 224, 0.6), 0 0 30px rgba(171, 144, 224, 0.6);
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

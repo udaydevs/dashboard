@@ -2,24 +2,17 @@
 import { Button } from "@/components/ui/button";
 import { Globe } from "@/components/ui/globe";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-
+import Pattern from "../ui/pattern";
 export default function Hero() {
-      const router = useRouter()
-    
+    const router = useRouter()
+
     return (
         <>
             <div className="absolute w-[98%] z-10 flex justify-end flex-col items-center h-[92%] bg-white  bottom-0 left-1/2 transform -translate-x-1/2 rounded-tl-3xl shadow-2xl rounded-tr-3xl border">
-                <div className="absolute top-30 flex z-2 border-2 border-black w-[90%] h-[70%]">
-                    <div className="border-2 h-full w-1/3">
-                    
-                    </div>
-                    <div className="border-2 h-full w-1/3">
-                    
-                    </div>
-                    <div className="border-2 h-full w-1/3">
-                    
-                    </div>
+                <Pattern />
+                <div className="z-10 border rounded-4xl px-5 text-gray-600" style={{ fontFamily: 'Noto Sans JP', fontWeight: 600 }}>
+                    日本語を学ぶのは{" "}
+                    <span style={{ fontFamily: 'Noto Sans JP', fontWeight: 900 }} className="text-primary px-2  font-black">楽しいです</span>。
                 </div>
                 <div className="font-bold  z-10 flex justify-center items-center flex-col text-6xl">
                     <div className="mb-3 text-[#1c1d26]">Master Japanese Faster</div>
@@ -27,16 +20,16 @@ export default function Hero() {
                         AI Precision
                     </span> Learning</div>
                 </div>
-                <div className="font-medium text-[#5d5858]  z-10 flex justify-center items-center flex-col text-[17px]">
+                <div className="font-medium  text-[#5d5858]  z-10 flex justify-center items-center flex-col text-[17px]">
                     <div className="w-[65%] text-sm text-center mt-6">
                         Learn Japanese with an AI tutor that adapts to your pace and goals. It personalizes lessons, corrects pronunciation in real time, and guides you through grammar, kanji, and conversation to help you speak confidently.
                     </div>
                 </div>
-                <div className="flex mt-6 z-10 space-x-2">
-                    <Button className="bg-black mr-3 p-6 font-bold text-md text-white" size="lg" variant="outline">
+                <div className="flex mt-6 w-50% z-10 space-x-2">
+                    <Button className="bg-black mr-2 p-5 font-bold text-md text-white rounded-2xl" size="lg" variant="outline">
                         Start learning
                     </Button>
-                    <Button className="text-md ml-3 font-bold p-6" size="lg" onClick={() => {router.push('/chat')}} variant="outline">
+                    <Button className="text-md ml-2 font-bold p-5 rounded-2xl" size="lg" onClick={() => { router.push('/chat') }} variant="outline">
                         Try a chat
                     </Button>
                 </div>
