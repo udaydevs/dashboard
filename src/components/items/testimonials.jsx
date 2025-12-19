@@ -45,7 +45,7 @@ export default function Testimonials() {
               <img
                 src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
                 alt="Student testimonial"
-                className="w-full h-[420px] object-cover"
+                className="w-full h-105 object-cover"
               />
               <button className="absolute bottom-4 right-4 bg-black text-white px-4 py-2 rounded-full text-sm">
                 ▶ Watch Story
