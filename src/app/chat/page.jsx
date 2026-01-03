@@ -1,11 +1,11 @@
 "use client"
-import { useRef, useState,useEffect } from "react"
+import { useRef, useState, useEffect } from "react"
 import remarkGfm from "remark-gfm"
 import ReactMarkdown from "react-markdown"
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
-import { IconHome, IconSettings, IconUser, IconBrandLine  } from "@tabler/icons-react";
+import { IconHome, IconSettings, IconUser, IconBrandLine } from "@tabler/icons-react";
 
-const main_url = "https://sensei-backend-104839152918.europe-west1.run.app/chat/translator/"
+const main_url = "https://sensei-backend-104839152918.europe-west1.run.app/prompt/"
 const local_url = "http://127.0.0.1:8000/chat/translator/"
 
 export default function Dashboard() {
@@ -19,10 +19,10 @@ export default function Dashboard() {
 
 
   useEffect(() => {
-  if (messagesEndRef.current) {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
-  }
-}, [responses])
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+  }, [responses])
 
   if (typeof window !== "undefined" && !recognitionRef.current) {
     const SpeechRecognition =
@@ -67,7 +67,7 @@ export default function Dashboard() {
     setPrompt('')
 
     try {
-      const res = await fetch(local_url, {
+      const res = await fetch(main_url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt }),
@@ -86,23 +86,23 @@ export default function Dashboard() {
 
   return (
     <div className="w-full h-screen flex p-4">
-       <Sidebar>
-          <SidebarBody className="bg-neutral-100 dark:bg-neutral-900 px-4 py-6">
-            <SidebarLink
-              link={{ label: "Home", href: "/", icon: <IconHome /> }}
-            />
-            <SidebarLink
-              link={{ label: "Chat", href: "/chat", icon: <IconBrandLine /> }}
-            />
+      <Sidebar>
+        <SidebarBody className="bg-neutral-100 dark:bg-neutral-900 px-4 py-6">
+          <SidebarLink
+            link={{ label: "Home", href: "/", icon: <IconHome /> }}
+          />
+          <SidebarLink
+            link={{ label: "Chat", href: "/chat", icon: <IconBrandLine /> }}
+          />
 
-            <SidebarLink
-              link={{ label: "Profile", href: "/user", icon: <IconUser /> }}
-            />
-            <SidebarLink
-              link={{ label: "Settings", href: "/settings", icon: <IconSettings /> }}
-            />
-          </SidebarBody>
-        </Sidebar> 
+          <SidebarLink
+            link={{ label: "Profile", href: "/user", icon: <IconUser /> }}
+          />
+          <SidebarLink
+            link={{ label: "Settings", href: "/settings", icon: <IconSettings /> }}
+          />
+        </SidebarBody>
+      </Sidebar>
       <div className="w-full flex flex-col items-center h-full">
         <div className="flex-1 w-full sm:w-4/5   p-2 overflow-auto scrollbar sm:py-6 sm:px-2 flex flex-col">
           {responses.length === 0 && (
@@ -118,20 +118,22 @@ export default function Dashboard() {
               className={`my-2 p-4  rounded-xl shadow-md max-w-[95%]  sm:max-w-[90%] ${item.type === 'user' ? 'self-end bg-primary' : 'self-start bg-white'}`}
             >
               {item.type === 'user' ? item.content : (
-                <div className="prose prose prose-sm sm:prose overflow-auto lg:prose-lg px-2">
+                <div className="prose prose-sm sm:prose lg:prose-lg max-w-none px-2">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {item.content}
+                    {typeof item.content === "string"
+                      ? item.content
+                      : item.content?.English_Output ?? ""}
                   </ReactMarkdown>
                 </div>
               )}
             </div>
           ))}
-           <div ref={messagesEndRef} />
+          <div ref={messagesEndRef} />
         </div>
 
 
         <div className="w-full  sm:w-4/5 bg-white border py-2 rounded-2xl shadow-xl shadow-gray-200 h-auto mb-4">
-          <form onSubmit={handleSubmit}  className="h-full px-4 py-3">
+          <form onSubmit={handleSubmit} className="h-full px-4 py-3">
             <input
               placeholder="Ask anything..."
               required
@@ -171,7 +173,7 @@ export default function Dashboard() {
                 <button
                   type="submit"
                   className="mx-2 p-2 w-fit border rounded-[50%] text-white bg-primary"
-                  
+
                 >
                   {isStreaming ? (
                     <div>

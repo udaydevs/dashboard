@@ -24,34 +24,32 @@ export default function SignUpForm({ setActiveForm }) {
     e.preventDefault();
 
     if (formData.password !== formData.confirmpassword) {
-      toast.error("Passwords do not match!");
+      toast.error("Passwords do not match!", { position: 'top-left' });
       return;
     }
 
     const payload = {
-      FirstName: formData.firstName,
-      LastName: formData.lastName,
+      name: formData.firstName + " " + formData.lastName,
       email: formData.email,
       password: formData.password,
       confirmpassword: formData.confirmpassword,
     };
 
-    // try {
-    //   const response = await axios.post("http://127.0.0.1:8000/account/SignUp/", payload, {
-    //     headers: { "Content-Type": "application/json" },
-    //   });
-
-    //   toast.success(response.data.msg || "User created successfully!", { duration: 8000 });
-    //   setActiveForm("signin");
-    // } catch (error) {
-    //   if (error.response) {
-    //     const errors = error.response.data;
-    //     const errorMsg = typeof errors === "object" ? JSON.stringify(errors) : errors.msg;
-    //     toast.error(errorMsg || "Something went wrong.", { duration: 8000 });
-    //   } else {
-    //     toast.error("Unable to reach the server.", { duration: 8000 });
-    //   }
-    // }
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/auth/register/", payload, {
+        headers: { "Content-Type": "application/json" },
+      });
+      toast.success(response.data.msg || "User created successfully!", { duration: 4000, position: "top-left" });
+      setActiveForm("signin");
+    } catch (error) {
+      if (error.response) {
+        const errors = error.response.data;
+        const errorMsg = typeof errors === "object" ? JSON.stringify(errors) : errors.msg;
+        toast.error(errorMsg || "Something went wrong.", { duration: 8000, position: "top-left" },);
+      } else {
+        toast.error("Unable to reach the server.", { duration: 8000 });
+      }
+    }
   };
 
   return (

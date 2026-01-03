@@ -7,7 +7,7 @@ import { toast } from "sonner";
 // import api from '@/api/ApiInstance';
 
 export default function SignInForm({ setActiveForm }) {
-  const [formData, setFormData] = useState({
+  const [data, setData] = useState({
     email: "",
     password: "",
   });
@@ -15,7 +15,7 @@ export default function SignInForm({ setActiveForm }) {
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
+    setData((prev) => ({ ...prev, [id]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -25,26 +25,27 @@ export default function SignInForm({ setActiveForm }) {
       toast.info("You are already logged in!", { duration: 4000 });
       return;
     }
-
+    const formData = new FormData();
+    formData.append("username", data.email)
+    formData.append("password", data.password)
     setIsLoading(true);
-    // try {
-    //   const response = await api.post("/account/api/SignIn/", {
-    //     email: formData.email,
-    //     password: formData.password,
-    //   });
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/auth/login/", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
-    //   localStorage.setItem("access", response.data.access);
-    //   localStorage.setItem("refresh", response.data.refresh);
-    //   toast.success("Login successful!", { duration: 3000 });
-    // } catch (error) {
-    //   if (error.response) {
-    //     toast.error(error.response.data.detail || "Invalid credentials", { duration: 5000 });
-    //   } else {
-    //     toast.error("Unable to reach the server.", { duration: 8000 });
-    //   }
-    // } finally {
-    //   setIsLoading(false);
-    // }
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("token_type", response.data.token_type);
+      toast.success("Login successful!", { duration: 3000 , position: 'top-left'});
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.detail || "Invalid credentials", { duration: 5000 , position: 'top-left'});
+      } else {
+        toast.error("Unable to reach the server.", { duration: 8000 , position: 'top-left'});
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -52,20 +53,22 @@ export default function SignInForm({ setActiveForm }) {
       <LabelInputContainer className="mb-2">
         <Input
           id="email"
-          value={formData.email}
+          value={data.email}
           onChange={handleChange}
           placeholder="projectmayhem@fc.com"
           type="email"
+          required
         />
       </LabelInputContainer>
 
       <LabelInputContainer className="mb-6">
         <Input
           id="password"
-          value={formData.password}
+          value={data.password}
           onChange={handleChange}
           placeholder="••••••••"
           type="password"
+          required
         />
       </LabelInputContainer>
 

@@ -1,15 +1,17 @@
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner"
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="w-full">
       <head>
         <link
-            href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@600;900&display=swap"
-            rel="stylesheet"
-          />
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@600;900&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body className="w-full">
+        <Toaster />
         <main className="">
           {children}
         </main>

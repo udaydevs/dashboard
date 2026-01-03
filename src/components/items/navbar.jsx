@@ -2,10 +2,11 @@
 
 import { useState } from "react"
 import { Button } from "../ui/button"
+import { useRouter } from "next/navigation"
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-
+  const router = useRouter()
   const navItems = [
     { label: "Features", id: "features" },
     { label: "Testimonials", id: "testimonials" },
@@ -57,7 +58,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <Button className="bg-black p-5 text-sm text-white rounded-3xl">
+          <Button className="bg-black p-5 text-sm text-white rounded-3xl" onClick={() => {router.push('/auth')}}>
             Get Started
           </Button>
         </div>
